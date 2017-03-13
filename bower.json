@@ -3,10 +3,11 @@
   "authors": [
     "Ehbraheem <ehbraheem@gmail.com>"
   ],
+//  TODO: Fix homepage
   "description": "Payment page for apps",
   "main": "",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/ehbraheem/",
   "ignore": [
     "**/.*",
     "node_modules",
