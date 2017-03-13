@@ -1,0 +1,17 @@
+{
+  "name": "Pay-processor",
+  "authors": [
+    "Ehbraheem <ehbraheem@gmail.com>"
+  ],
+  "description": "Payment page for apps",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
