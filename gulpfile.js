@@ -4,33 +4,33 @@
 
 "use strict";
 
-var gulp = require("gulp"),
+var gulp = require("gulp");
 
     // gulp flow control
-    gulpIf = require("gulp-if"),
-    sync = require("gulp-sync")(gulp),
+var gulpIf = require("gulp-if"),
+    sync = require("gulp-sync")(gulp);
 
     // build tools
-    del = require("del"),
-    debug = require("debug"),
+var del = require("del"),
+    debug = require("gulp-debug"),
     sass = require("gulp-sass"),
     sourcemaps = require("gulp-sourcemaps"),
-    replace = require("gulp-replace"),
+    replace = require("gulp-replace");
 
     // distribution minification
-    useref = require("gulp-useref"),
+var useref = require("gulp-useref"),
     uglify = require("gulp-uglify"),
     cssMin = require("gulp-clean-css"),
-    htmlMin = require("gulp-htmlmin"),
+    htmlMin = require("gulp-htmlmin");
 
     // runtime tools
-    browserSync = require("browser-sync").create();
+var browserSync = require("browser-sync").create();
 
  // source code path
-var srcPath = "developemnt/src";
+var srcPath = "client/src";
 
 // vendor/processed code path
-var buildPath = "development/build";
+var buildPath = "client/build";
 
 // vendor specific location for use in development
 var vendorBuildPath = buildPath + "/vendor";
@@ -41,10 +41,10 @@ var distPath = "dist";
 // location of vendor packages
 var bowerPath = "bower_components";
 
-var config = {
+var cfg = {
     // sourcecode globs and build path
     root_html : { src: srcPath + "/index.html", bld: buildPath },
-    css :       { src: srcPath + "/stylesheets/**/*.css", bld: buildPath + "/stylesheets" },
+    css : { src: srcPath + "/stylesheets/**/*.css", bld: buildPath + "/stylesheets" },
     js :        { src: srcPath + "/javascripts/**/*.js" },
     html :      { src: [srcPath + "/**/*.html", "!" + srcPath + "/*.html" ]},
 
@@ -74,8 +74,8 @@ var config = {
 
 // files within hese paths will be saved as a root-level resources in this priority order
 var devResourcePath = [
-    config.vendor_js.bld,
-    config.vendor_css.bld,
+    cfg.vendor_js.bld,
+    cfg.vendor_css.bld,
     buildPath + "/javascripts",
     buildPath + "/stylesheets",
     srcPath,
@@ -101,37 +101,38 @@ gulp.task("clean", ["clean:build", "clean:dist"]);
 // place vendor css files in build area
 gulp.task("vendor_css", function () {
     return gulp.src([
-        // config.bootstrap_css.src,
+        // cfg.bootstrap_css.src,
         ])
-        .pipe(gulp.dest(config.vendor_css.bld));
+        .pipe(gulp.dest(cfg.vendor_css.bld));
 });
 
 // place vendor js files in build area
 gulp.task("vendor_js", function () {
     return gulp.src([
-        config.jquery.src,
-        config.bootstrap_js.src,
-        config.angular.src,
-        config.angular_ui_router.src
+        cfg.jquery.src,
+        cfg.bootstrap_js.src,
+        cfg.angular.src,
+        cfg.angular_ui_router.src
         ])
-        .pipe(gulp.dest(config.vendor_js.bld));
+        .pipe(gulp.dest(cfg.vendor_js.bld));
 });
 
 // place all vendor font files in build area
 gulp.task("vendor_fonts", function () {
     return gulp.src([
-        config.bootstrap_fonts.src,
+        cfg.bootstrap_fonts.src,
         ])
-        .pipe(gulp.dest(config.vendor_fonts.bld));
+        .pipe(gulp.dest(cfg.vendor_fonts.bld));
 });
 
+//TODO: Fix error
 // compile sass files
 gulp.task("css", function () {
-    return gulp.src(config.css.src).pipe(debug())
+    return gulp.src(cfg.css.src).pipe(debug())
         .pipe(sourcemaps.init())
-        .pipe(sass({ includePaths: [config.bootstrap_sass.src ] }))
+        .pipe(sass({ includePaths: [cfg.bootstrap_sass.src]}))
         .pipe(sourcemaps.write("./maps"))
-        .pipe(gulp.dest(config.css.bld)).pipe(debug());
+        .pipe(gulp.dest(cfg.css.bld)).pipe(debug());
 });
 
 // prepare the development area
