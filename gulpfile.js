@@ -49,20 +49,24 @@ var cfg = {
     html :      { src: [srcPath + "/**/*.html", "!" + srcPath + "/*.html" ]},
 
     // vendor css src globs
-    bootstrap_sass :   {src: bowerPath + "/bootstrap-sass/assets/stylesheets/" },
+    bootstrap_sass :   {src: bowerPath + "/bootstrap/scss/" },
 
-    // vendor fonts src globs
+    //TODO: Remove for bootstrap v4 migration
+    // // vendor fonts src globs
     bootstrap_fonts :  {src: bowerPath + "/bootstrap-sass/assets/fonts/**/*" },
 
     // vendor js src globs
     jquery :           {src: bowerPath + "/jquery2/jquery.js" },
-    bootstrap_js :     {src: bowerPath + "/bootstrap-sass/assets/javascripts/bootstrap.js" },
+    bootstrap_js :     {src: bowerPath + "/bootstrap/dist/js/bootstrap.js" },
+    bootstrap_tether_css : {src: bowerPath + "/tether/dist/css/*.css"},
+    bootstrap_tether_js : {src: bowerPath + "/tether/dist/js/tether.js"},
     angular :          {src: bowerPath + "/angular/angular.js" },
     angular_ui_router :{src: bowerPath + "/angular-ui-router/release/angular-ui-router.js" },
 
     // vendor build locations
     vendor_js :    { bld: vendorBuildPath + "/javascripts" },
     vendor_css :   { bld: vendorBuildPath + "/stylesheets" },
+
     vendor_fonts : { bld: vendorBuildPath + "/stylesheets/fonts" },
 
     // TODO: Fix the API
@@ -110,9 +114,10 @@ gulp.task("vendor_css", () => {
 gulp.task("vendor_js", () => {
     return gulp.src([
         cfg.jquery.src,
+        cfg.bootstrap_tether_js.src,
         cfg.bootstrap_js.src,
         cfg.angular.src,
-        cfg.angular_ui_router.src
+        cfg.angular_ui_router.src,
         ])
         .pipe(gulp.dest(cfg.vendor_js.bld));
 });
@@ -128,7 +133,7 @@ gulp.task("vendor_fonts", () => {
 //TODO: Fix error
 // compile sass files
 gulp.task("css", () => {
-    return gulp.src(cfg.css.src).pipe(debug())
+    return gulp.src([cfg.css.src, cfg.bootstrap_tether_css.src]).pipe(debug())
         .pipe(sourcemaps.init())
         .pipe(sass({ includePaths: [cfg.bootstrap_sass.src]}))
         .pipe(sourcemaps.write("./maps"))
