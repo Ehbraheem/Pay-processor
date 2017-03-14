@@ -70,15 +70,69 @@ var config = {
                    prd: "http://localhost:3000" },
 
 
-}
+};
 
 // files within hese paths will be saved as a root-level resources in this priority order
 var devResourcePath = [
-    cfg.vendor_js.bld,
-    cfg.vendor_css.bld,
+    config.vendor_js.bld,
+    config.vendor_css.bld,
     buildPath + "/javascripts",
     buildPath + "/stylesheets",
     srcPath,
     srcPath + "/javascripts",
     srcPath + "/styleheets"
 ];
+
+// TODO: DRY-out tasks
+
+// Remove all files below the build tree
+gulp.task("clean:build", function () {
+    return del(buildPath);
+});
+
+// remove all files below the dist area
+gulp.task("clean:dist", function () {
+    return del(distPath);
+});
+
+// remove all files below both the build and dist area
+gulp.task("clean", ["clean:build", "clean:dist"]);
+
+// place vendor css files in build area
+gulp.task("vendor_css", function () {
+    return gulp.src([
+        // config.bootstrap_css.src,
+        ])
+        .pipe(gulp.dest(config.vendor_css.bld));
+});
+
+// place vendor js files in build area
+gulp.task("vendor_js", function () {
+    return gulp.src([
+        config.jquery.src,
+        config.bootstrap_js.src,
+        config.angular.src,
+        config.angular_ui_router.src
+        ])
+        .pipe(gulp.dest(config.vendor_js.bld));
+});
+
+// place all vendor font files in build area
+gulp.task("vendor_fonts", function () {
+    return gulp.src([
+        config.bootstrap_fonts.src,
+        ])
+        .pipe(gulp.dest(config.vendor_fonts.bld));
+});
+
+// compile sass files
+gulp.task("css", function () {
+    return gulp.src(config.css.src).pipe(debug())
+        .pipe(sourcemaps.init())
+        .pipe(sass({ includePaths: [config.bootstrap_sass.src ] }))
+        .pipe(sourcemaps.write("./maps"))
+        .pipe(gulp.dest(config.css.bld)).pipe(debug());
+});
+
+// prepare the development area
+gulp.task("build", sync.sync(["clean:build", ["vendor_css", "vendor_js", "vendor_fonts", "css"]]));
