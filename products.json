@@ -1,0 +1,43 @@
+{
+  "Core Lab" : [
+    {
+      "Name" : "App Lab",
+      "price" : 200000,
+      "duration": "4 months"
+    },
+    {
+      "Name" : "Workforce Lab",
+      "price" : 400000,
+      "duration": "4 months"
+    }
+  ],
+  "S.T.E.M" : [
+    {
+      "Name" : "Robotics",
+      "price" : 35000,
+      "duration": "1 Week"
+    },
+    {
+      "Name" : "Creative Computing",
+      "price" : 35000,
+      "duration": "1 Week"
+    },
+    {
+      "Name" : "Science Lab (Python)",
+      "price" : 50000,
+      "duration": "2 Weeks"
+    }
+  ],
+  "Corporate training" : [
+    {
+      "Name" : "Social media & marketing",
+      "price" : 50000,
+      "duration": "1 Week"
+    },
+    {
+      "Name" : "Business inteligent",
+      "price" : 50000,
+      "duration": "1 Week"
+    }
+  ]
+}
