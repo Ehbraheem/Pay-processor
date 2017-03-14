@@ -66,7 +66,7 @@ var cfg = {
     vendor_fonts : { bld: vendorBuildPath + "/stylesheets/fonts" },
 
     // TODO: Fix the API
-    paymentUrl : { dev: "http://localhost:3000",
+    providerUrl : { dev: "http://localhost:3000",
                    prd: "http://localhost:3000" },
 
 
@@ -86,12 +86,12 @@ var devResourcePath = [
 // TODO: DRY-out tasks
 
 // Remove all files below the build tree
-gulp.task("clean:build", function () {
+gulp.task("clean:build", () => {
     return del(buildPath);
 });
 
 // remove all files below the dist area
-gulp.task("clean:dist", function () {
+gulp.task("clean:dist", () => {
     return del(distPath);
 });
 
@@ -99,7 +99,7 @@ gulp.task("clean:dist", function () {
 gulp.task("clean", ["clean:build", "clean:dist"]);
 
 // place vendor css files in build area
-gulp.task("vendor_css", function () {
+gulp.task("vendor_css", () => {
     return gulp.src([
         // cfg.bootstrap_css.src,
         ])
@@ -107,7 +107,7 @@ gulp.task("vendor_css", function () {
 });
 
 // place vendor js files in build area
-gulp.task("vendor_js", function () {
+gulp.task("vendor_js", () => {
     return gulp.src([
         cfg.jquery.src,
         cfg.bootstrap_js.src,
@@ -118,7 +118,7 @@ gulp.task("vendor_js", function () {
 });
 
 // place all vendor font files in build area
-gulp.task("vendor_fonts", function () {
+gulp.task("vendor_fonts", () => {
     return gulp.src([
         cfg.bootstrap_fonts.src,
         ])
@@ -127,7 +127,7 @@ gulp.task("vendor_fonts", function () {
 
 //TODO: Fix error
 // compile sass files
-gulp.task("css", function () {
+gulp.task("css", () => {
     return gulp.src(cfg.css.src).pipe(debug())
         .pipe(sourcemaps.init())
         .pipe(sass({ includePaths: [cfg.bootstrap_sass.src]}))
@@ -137,3 +137,70 @@ gulp.task("css", function () {
 
 // prepare the development area
 gulp.task("build", sync.sync(["clean:build", ["vendor_css", "vendor_js", "vendor_fonts", "css"]]));
+
+
+// helper method to launch server and to watch for changes
+function browserSyncInit(baseDir, watchFiles) {
+    browserSync.instance = browserSync.init(watchFiles, {
+        server : { baseDir: baseDir},
+        port : 8080,
+        ui : {port : 8090}
+    });
+};
+
+// run the browser against the development/build area and watch files being edited
+gulp.task("browserSync", ["build"], () => {
+    browserSyncInit(devResourcePath, [
+        cfg.root_html.src,
+        cfg.css.bld + "/**/*.css",
+        cfg.js.src,
+        cfg.html.src,
+     ]);
+});
+
+// prepare the development environment, launch server and watch for file changes
+gulp.task("run", ["build", "browserSync"], () => {
+    // extensions to watch() within even if we need to pre-process source code
+    gulp.watch(cfg.css.src, ["css"]);
+});
+
+
+// build assets referenced from root-level HTML file and create refs in HTML file
+gulp.task("dist:assets", ["build"], () => {
+    return gulp.src(cfg.root_html.src).pipe(debug())
+        .pipe(useref({ searchPath: devResourcePath }))
+        .pipe(gulpIf(["/**/*.js"], replace(cfg.providerUrl.dev, cfg.providerUrl.prd))) // replace URL from file
+        .pipe(gulpIf(["**/*.js"], uglify())) // minify js
+        .pipe(gulpIf(["**/*.css"], cssMin())) // minify css
+        .pipe(gulp.dest(distPath)).pipe(debug());
+});
+
+// build/copy over font resources into dist tree
+gulp.task("dist:fonts", () => {
+    return gulp.src(cfg.vendor_fonts.bld + "/**/*", {base: cfg.vendor_css.bld})
+        .pipe(gulp.dest(distPath));
+});
+
+// build/ copy over HTML resources into dist tree
+//TODO: Fix buggy code
+// gulp.task("dist:html", () => {
+//     return gulp.src(cfg.html.src).pipe(debug())
+//         .pipe(htmlMin({collapseWhitespace: true })) // minify HTML
+//         .pipe(gulp.dest(distPath)).pipe(debug());
+// });
+
+gulp.task("dist:html", () => {
+    return gulp.src(cfg.html.src, { base: srcPath + "/javascripts"}).pipe(debug())
+        .pipe(htmlMin({ collapseWhitespace: true })) // minify HTML
+        .pipe(gulp.dest(distPath)).pipe(debug());
+});
+
+// build all dist artifacts ready for deployment
+gulp.task("dist", sync.sync(["clean:dist", "build", "dist:assets", "dist:fonts", "dist:html"]));
+
+// execute the dist web-app in a web server
+gulp.task("dist:run", ["dist"], () => {
+    browserSyncInit(distPath);
+});
+
+
