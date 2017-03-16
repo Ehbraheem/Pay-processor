@@ -20,6 +20,13 @@
     }
 
     function ProductListController () {
-
+        var $ctrl = this;
+        
+        return;
+        /////////////////////
+        
+        // function () {
+        //
+        // }
     };
 })();

@@ -32,6 +32,7 @@
         return;
         /////////////////////////////////
         function allProducts() {
+            window.allProducts = Products.allProducts();
             return Products.allProducts();
         }
 
