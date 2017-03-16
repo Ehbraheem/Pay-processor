@@ -1,15 +1,15 @@
 <div class="card text-center">
     <div class="card-header">
         <ul class="nav nav-pills card-header-pills">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">S.T.E.M</a>
+            <li class="nav-item" ng-repeat="tabs in $ctrl.tabs()">
+                <a ng-class="$ctrl.tab === $index ? 'nav-link active' : 'nav-link'  "  href="#" id={{$index}} ng-click="$ctrl.tab=$index">{{tabs}}</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="#">Link</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link disabled" href="#">Disabled</a>-->
+            <!--</li>-->
         </ul>
     </div>
     <ul ng-repeat="product in $ctrl.allProducts">

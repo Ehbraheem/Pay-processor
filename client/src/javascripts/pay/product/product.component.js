@@ -24,16 +24,28 @@
     function ProductController (Products) {
 
         var $ctrl = this;
-        $ctrl.allProducts;
+        $ctrl.tabs = makeTabs;
+        $ctrl.allProducts = allProducts();
+        // $ctrl.makeTab = currentTab;
+        $ctrl.tab = 0;
 
-        activate();
         return;
         /////////////////////////////////
-        function activate() {
-            $ctrl.allProducts = Products.allProducts()[1]["S.T.E.M"];
-            console.log($ctrl.allProducts["S.T.E.M"]);
-            window.allProducts = $ctrl.allProducts;
+        function allProducts() {
+            return Products.allProducts();
         }
 
+        function makeTabs() {
+            return $ctrl.allProducts.map(function (elem) {
+                return Object.keys(elem)[0];
+            });
+        }
+
+        // function currentTab(tab) {
+        //     var id = "#"+tab;
+        //     $(".active").toggleClass("active", false);
+        //     console.log(id);
+        //    $(id).addClass("active")
+        // }
     };
 })();
