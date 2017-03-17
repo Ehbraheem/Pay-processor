@@ -175,7 +175,7 @@ gulp.task("dist:assets", ["build"], () => {
     return gulp.src(cfg.root_html.src).pipe(debug())
         .pipe(useref({ searchPath: devResourcePath }))
         .pipe(gulpIf(["/**/*.js"], replace(cfg.providerUrl.dev, cfg.providerUrl.prd))) // replace URL from file
-        .pipe(gulpIf(["**/*.js"], uglify())) // minify js
+        .pipe(gulpIf(["**/*.js"], uglify({ 'ascii-only': true }))) // minify js
         .pipe(gulpIf(["**/*.css"], cssMin())) // minify css
         .pipe(gulp.dest(distPath)).pipe(debug());
 });

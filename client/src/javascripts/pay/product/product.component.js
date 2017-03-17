@@ -26,8 +26,13 @@
         var $ctrl = this;
         $ctrl.tabs = makeTabs;
         $ctrl.allProducts = allProducts();
+        window.tabs = makeTabs();
+
         // $ctrl.makeTab = currentTab;
-        $ctrl.tab = 0;
+        // $ctrl.tab = $ctrl.tab || 0;
+        // window.tab = $ctrl.tab;
+        $ctrl.toggleTab = toggleTab;
+        $ctrl.$onInit = toggleTab(0);
 
         return;
         /////////////////////////////////
@@ -41,6 +46,17 @@
                 return Object.keys(elem)[0];
             });
         }
+
+        function toggleTab(index) {
+            var tab = $ctrl.tab = index;
+            $ctrl.currentProduct = Object.values($ctrl.allProducts[tab])[0]; // To strip out the array from the returned nested array
+            window.curent = $ctrl.currentProduct;
+            return tab;
+        }
+
+        // function currentProduct() {
+        //     // $ctrl.allProducts[]
+        // }
 
         // function currentTab(tab) {
         //     var id = "#"+tab;
