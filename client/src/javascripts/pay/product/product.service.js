@@ -65,6 +65,7 @@
             }
         ];
 
+
         service.allProducts = allProducts;
 
         service.getProductList = getProductList;
