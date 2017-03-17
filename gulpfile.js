@@ -37,7 +37,7 @@ var buildPath = "client/build";
 var vendorBuildPath = buildPath + "/vendor";
 
 // distribution folder
-var distPath = "dist";
+var distPath = "docs";
 
 // location of vendor packages
 var bowerPath = "bower_components";
