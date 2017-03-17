@@ -57,7 +57,7 @@
                         "duration": "1 Week"
                     },
                     {
-                        "name": "Business inteligent",
+                        "name": "Business intelligent",
                         "price": 50000,
                         "duration": "1 Week"
                     }
