@@ -21,7 +21,8 @@ var del = require("del"),
 var useref = require("gulp-useref"),
     uglify = require("gulp-uglify"),
     cssMin = require("gulp-clean-css"),
-    htmlMin = require("gulp-htmlmin");
+    htmlMin = require("gulp-htmlmin"),
+    imageMin = require("gulp-imagemin");
 
     // runtime tools
 var browserSync = require("browser-sync").create();
@@ -68,6 +69,9 @@ var cfg = {
     vendor_css :   { bld: vendorBuildPath + "/stylesheets" },
 
     vendor_fonts : { bld: vendorBuildPath + "/stylesheets/fonts" },
+
+    // Images
+    images : { src: buildPath + "/images" },
 
     // TODO: Fix the API
     providerUrl : { dev: "http://localhost:3000",
@@ -193,6 +197,10 @@ gulp.task("dist:fonts", () => {
 //         .pipe(htmlMin({collapseWhitespace: true })) // minify HTML
 //         .pipe(gulp.dest(distPath)).pipe(debug());
 // });
+
+// gulp.task("assets:images", () => {
+//     return gulp.src(cfg.)
+// })
 
 gulp.task("dist:html", () => {
     return gulp.src(cfg.html.src, { base: srcPath + "/javascripts"}).pipe(debug())

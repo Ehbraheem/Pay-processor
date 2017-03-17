@@ -19,23 +19,16 @@
 
     templateUrl.$inject = ["pay.config.APP_CONFIG"];
 
+    ProductListController.$inject = ["pay.config.APP_CONFIG"];
+
     function templateUrl (APP_CONFIG) {
         return APP_CONFIG.product_list_html;
     }
 
-    function ProductListController () {
+    function ProductListController (APP_CONFIG) {
 
         var $ctrl = this;
-
-        // $ctrl.products = products();
-        //
-        // return;
-        // /////////////////////
-        //
-        // function products() {
-        //     console.log("products from productlist", $ctrl.products)
-        //     return products;
-        // }
+        $ctrl.productSrc = APP_CONFIG.images_src + "/codeiscool.jpg";
     };
 
         // .component('counter', {
