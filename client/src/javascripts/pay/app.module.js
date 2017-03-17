@@ -9,6 +9,7 @@
         .module("pay", [
             "ui.router",
             "pay.config",
-            "pay.product"
+            "pay.product",
+            "pay.payment"
         ]);
 })();

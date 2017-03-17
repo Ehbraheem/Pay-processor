@@ -12,23 +12,20 @@
             templateUrl : templateUrl,
             controller : ProductListController,
             bindings : {
-                products: '<',
-                items: '<'
+                products: '<'
             }
         });
 
     templateUrl.$inject = ["pay.config.APP_CONFIG"];
 
-    ProductListController.$inject = ["pay.config.APP_CONFIG"];
 
     function templateUrl (APP_CONFIG) {
         return APP_CONFIG.product_list_html;
     }
 
-    function ProductListController (APP_CONFIG) {
+    function ProductListController () {
 
         var $ctrl = this;
-        $ctrl.productSrc = APP_CONFIG.images_src + "/codeiscool.jpg";
     };
 
         // .component('counter', {
