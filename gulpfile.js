@@ -215,5 +215,3 @@ gulp.task("dist", sync.sync(["clean:dist", "build", "dist:assets", "dist:fonts",
 gulp.task("dist:run", ["dist"], () => {
     browserSyncInit(distPath);
 });
-
-
