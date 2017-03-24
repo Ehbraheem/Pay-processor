@@ -10,7 +10,6 @@
         .module("pay.product")
         .service("pay.product.Products", ProductService);
 
-    ProductService.$inject = [];
 
     function ProductService() {
 

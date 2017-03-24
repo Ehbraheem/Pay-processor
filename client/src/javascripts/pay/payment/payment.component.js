@@ -10,7 +10,8 @@
             templateUrl : templateUrl,
             controller : PaymentController,
             bindings: {
-                price : '<'
+                price : '<',
+                product : '<'
             }
         });
 
@@ -20,9 +21,42 @@
         return APP_CONFIG.payment_form;
     }
 
-    function PaymentController () {
+    PaymentController.$inject = ["pay.payment.Pay", "pay.config.APP_CONFIG"];
+    function PaymentController (Pay, APP_CONFIG) {
 
-        $ctrl = this;
+        var $ctrl = this;
+        $ctrl.makePayment = makePayment;
+
+
+        $ctrl.$onInit = function () {
+            $ctrl.orderId = Pay.orderId($ctrl.price);
+        };
+
+        return;
+        ///////////////////////////////////
+
+
+        function orderId() {
+            Pay.orderId($ctrl.price);
+        }
+
+        function makePayment() {
+            var formParams = APP_CONFIG.paymentParams
+            formParams.email = $ctrl.email;
+            formParams.amt = $ctrl.price;
+            formParams.prd = $ctrl.product;
+
+            Pay.makePay(formParams).then(
+                function () {
+                    console.log("success");
+                },
+                handleError
+            )
+        }
+
+        function handleError(response) {
+            console.log(response);
+        }
 
     }
 })();

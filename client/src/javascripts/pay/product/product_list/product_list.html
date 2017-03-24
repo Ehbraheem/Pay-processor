@@ -8,8 +8,13 @@
         </div>
         <div class="card-footer">
             <!--<a href="#" class="btn btn-primary btn-block btn-group-vertical">PAY</a>-->
-            <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Checkout </a>
-            <payment-form price="product.price"></payment-form>
+            <button class="btn btn-primary btn-lg active" role="button" type="button" data-toggle="modal" data-target="#paymentModal">Checkout </button>
+            <!---->
         </div>
     </div>
+    <!--modal-->
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <payment-form price="product.price" product="product.name"></payment-form>
+    </div>
+
 </div>
