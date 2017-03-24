@@ -2,7 +2,7 @@
     <input type="hidden" name="mercId" value="05228">
     <input type="hidden" name="currCode" value="566">
     <input type="hidden" name="amt" value="{{$ctrl.price}}">
-    <input type="hidden" name="orderId" value="437abc">
+    <input type="hidden" name="orderId" value={{$ctrl.price % 23 + 35637}}>
     <input type="hidden" name="prod" value="shoes">
     <input type="hidden" name="email" value="ehbraheem@gmail.com">
     <button type="submit" name="submit" class="btn btn-success">
