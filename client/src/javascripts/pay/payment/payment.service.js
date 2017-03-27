@@ -16,7 +16,7 @@
         service.orderCount = service.orderCount || 0;
 
         service.orderId = orderId;
-        service.makePay = makePay;
+        // service.makePay = makePay;
 
         return;
         //////////////////////////////////////
@@ -36,13 +36,13 @@
 
         }
         
-        function makePay(params) {
-            return $http({
-                method: "POST",
-                url: APP_CONFIG.providerUrl,
-                data: $.param(params),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-        }
+        // function makePay(params) {
+        //     return $http({
+        //         method: "POST",
+        //         url: APP_CONFIG.providerUrl,
+        //         data: $.param(params),
+        //         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        //     })
+        // }
     }
 })();

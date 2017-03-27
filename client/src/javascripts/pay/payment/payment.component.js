@@ -41,7 +41,7 @@
         }
 
         function makePayment() {
-            var formParams = APP_CONFIG.paymentParams
+            var formParams = APP_CONFIG.paymentParams;
             formParams.email = $ctrl.email;
             formParams.amt = $ctrl.price;
             formParams.prd = $ctrl.product;

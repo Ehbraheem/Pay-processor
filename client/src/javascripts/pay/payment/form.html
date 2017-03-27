@@ -1,5 +1,4 @@
-<!--<form method="post" name="upay_form" action="https://skyecipgtest.skyebankng.com/app/MerchantServices/MakePayment.aspx" target="_top">-->
-<form>
+<form method="post" name="upay_form" action="https://skyecipgtest.skyebankng.com/app/MerchantServices/MakePayment.aspx" target="_top">
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -9,11 +8,11 @@
             </button>
         </div>
         <div class="modal-body">
-                <!--<input type="hidden" name="mercId" value="05228">-->
-                <!--<input type="hidden" name="currCode" value="566">-->
-                <!--<input type="hidden" name="amt" value="{{$ctrl.price}}">-->
-                <!--<input type="hidden" name="orderId" value="{{$ctrl.orderId}}">-->
-                <!--<input type="hidden" name="prod" value="shoes">-->
+                <input type="hidden" name="mercId" value="05228">
+                <input type="hidden" name="currCode" value="566">
+                <input type="hidden" name="amt" value="{{$ctrl.price}}">
+                <input type="hidden" name="orderId" value="{{$ctrl.orderId}}">
+                <input type="hidden" name="prod" value="{{$ctrl.product}}">
                 <div class="form-group">
                     <label for="email" class="form-control-label">Message:</label>
                     <input type="email" ng-model="$ctrl.email" class="form-control" name="email" id="email" placeholder="hello@appsworkforce.com" required>
@@ -22,7 +21,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="submit" class="btn btn-success" ng-show="!upay_form.$invalid" ng-click="$ctrl.makePayment()">
+            <button type="submit" name="submit" class="btn btn-success" ng-show="!upay_form.$invalid">
                 PAY
             </button>
         </div>
