@@ -1,30 +1,20 @@
-<form method="post" name="upay_form" action="https://skyecipgtest.skyebankng.com/app/MerchantServices/MakePayment.aspx" target="_top">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Make Payment</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-                <input type="hidden" name="mercId" value="05228">
-                <input type="hidden" name="currCode" value="566">
-                <input type="hidden" name="amt" value="{{$ctrl.price}}">
-                <input type="hidden" name="orderId" value="{{$ctrl.orderId}}">
-                <input type="hidden" name="prod" value="{{$ctrl.product}}">
-                <div class="form-group">
-                    <label for="email" class="form-control-label">Message:</label>
-                    <input type="email" ng-model="$ctrl.email" class="form-control" name="email" id="email" placeholder="hello@appsworkforce.com" required>
-                </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="submit" class="btn btn-success" ng-show="!upay_form.$invalid">
-                PAY
-            </button>
-        </div>
+<form class="form-inline"
+      method="post"
+      name="upay_form"
+      action="https://skyecipgtest.skyebankng.com/app/MerchantServices/MakePayment.aspx"
+      target="_top">
+    <label class="sr-only" for="inlineFormInputGroup">Email</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <div class="input-group-addon">Email</div>
+        <input type="email" class="form-control" id="inlineFormInputGroup" ng-model="$ctrl.email" name="email" placeholder="hello@appsworkforce.com" required="required">
     </div>
-</div>
+
+    <input type="hidden" name="mercId" value="05228">
+    <input type="hidden" name="currCode" value="566">
+    <!--<input type="hidden" name="amt" value="{{$ctrl.price}}">-->
+    <input type="hidden" name="amt" value="400">
+    <input type="hidden" name="orderId" value="{{$ctrl.orderId}}">
+    <input type="hidden" name="prod" value="{{$ctrl.product}}">
+
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>

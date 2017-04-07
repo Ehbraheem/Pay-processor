@@ -21,42 +21,59 @@
         return APP_CONFIG.payment_form;
     }
 
-    PaymentController.$inject = ["pay.payment.Pay", "pay.config.APP_CONFIG"];
-    function PaymentController (Pay, APP_CONFIG) {
+    PaymentController.$inject = ["$scope", "pay.payment.Pay", "pay.config.APP_CONFIG"];
+    function PaymentController ($scope, Pay, APP_CONFIG) {
 
         var $ctrl = this;
-        $ctrl.makePayment = makePayment;
+        $ctrl.email = "";
+        // $ctrl.makePayment = makePayment;
+        $ctrl.persistDetails = persistDetails;
 
 
         $ctrl.$onInit = function () {
-            $ctrl.orderId = Pay.orderId($ctrl.price);
+            console.log("price is",$ctrl.price);
+            $ctrl.orderId = Pay.getOrderId($ctrl.price);
         };
+
+        $ctrl.$postLink = persistDetails();
 
         return;
         ///////////////////////////////////
 
 
         function orderId() {
-            Pay.orderId($ctrl.price);
+            console.log("price is",$ctrl.price);
+            Pay.getOrderId($ctrl.price);
         }
 
-        function makePayment() {
-            var formParams = APP_CONFIG.paymentParams;
-            formParams.email = $ctrl.email;
-            formParams.amt = $ctrl.price;
-            formParams.prd = $ctrl.product;
-
-            Pay.makePay(formParams).then(
-                function () {
-                    console.log("success");
-                },
-                handleError
-            )
+        function persistDetails() {
+            console.log("am Called");
+            var payDetails = {};
+            payDetails.orderId = $ctrl.orderId;
+            payDetails.price = $ctrl.price;
+            payDetails.product = $ctrl.product;
+            payDetails.email = $ctrl.email;
+            console.log(payDetails);
+            return Pay.setPaymentDetails(payDetails);
         }
 
-        function handleError(response) {
-            console.log(response);
-        }
+        // function makePayment() {
+        //     var formParams = APP_CONFIG.paymentParams;
+        //     formParams.email = $ctrl.email;
+        //     formParams.amt = $ctrl.price;
+        //     formParams.prd = $ctrl.product;
+        //
+        //     Pay.makePay(formParams).then(
+        //         function () {
+        //             console.log("success");
+        //         },
+        //         handleError
+        //     )
+        // }
+        //
+        // function handleError(response) {
+        //     console.log(response);
+        // }
 
     }
 })();

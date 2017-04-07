@@ -18,6 +18,16 @@
             .state("home", {
                 url: "/",
                 templateUrl : APP_CONFIG.main_page_html
+            })
+            .state("success", {
+                url: "/success?{TransactionReference}?{OrderID}",
+                template: "<success> </success>"
+            })
+            .state("error", {
+                url: "/error"
+            })
+            .state("cancel", {
+                url: "/cancel"
             });
 
         $urlRouterProvider.otherwise("/");

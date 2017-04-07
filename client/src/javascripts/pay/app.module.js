@@ -10,6 +10,7 @@
             "ui.router",
             "pay.config",
             "pay.product",
-            "pay.payment"
+            "pay.payment",
+            "pay.success"
         ]);
 })();

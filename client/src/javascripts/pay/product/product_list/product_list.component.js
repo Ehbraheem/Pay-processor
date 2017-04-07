@@ -16,6 +16,7 @@
             }
         });
 
+
     templateUrl.$inject = ["pay.config.APP_CONFIG"];
 
 
@@ -26,29 +27,31 @@
     function ProductListController () {
 
         var $ctrl = this;
+        $ctrl.showForm = showForm;
+
+
+        $ctrl.$onChanges = function () {
+            $ctrl.currentForm = null;
+        };
+
+
+
+        return;
+        /////////////////////////////
+
+        function showForm(index) {
+            var buttonId = 'button' + index;
+            $('#' + buttonId).remove();
+            console.log(currentForm(index));
+            $ctrl.currentForm = currentForm(index);
+        }
+
+        function currentForm(index) {
+            var formId = index;
+            var currentForm = {}
+            currentForm[formId] = true;
+            return currentForm;
+        }
     };
 
-        // .component('counter', {
-        //     bindings: {
-        //         count: '='
-        //     },
-        //     controller: function () {
-        //         function increment() {
-        //             this.count++;
-        //         }
-        //         console.log(this.count);
-        //         function decrement() {
-        //             this.count--;
-        //         }
-        //         this.increment = increment;
-        //         this.decrement = decrement;
-        //     },
-        //     template: [
-        //         '<div class="todo">',
-        //         '<input type="text" ng-model="$ctrl.count">',
-        //         '<button type="button" ng-click="$ctrl.decrement();">-</button>',
-        //         '<button type="button" ng-click="$ctrl.increment();">+</button>',
-        //         '</div>'
-        //     ].join('')
-        // });
 })();

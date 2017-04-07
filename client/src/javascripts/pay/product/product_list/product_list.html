@@ -8,13 +8,12 @@
         </div>
         <div class="card-footer">
             <!--<a href="#" class="btn btn-primary btn-block btn-group-vertical">PAY</a>-->
-            <button class="btn btn-primary btn-lg active" role="button" type="button" data-toggle="modal" data-target="#paymentModal">Checkout </button>
+            <div ng-if="!$ctrl.payButton.button">
+                <button class="btn btn-primary btn-lg active" role="button" type="button" ng-click="$ctrl.showForm($index)" id="{{'button' + $index}}">Checkout </button>
+            </div>
+            <payment-form price="product.price" product="product.name" id="{{'form' + $index}}" ng-show="$ctrl.currentForm[$index]"> </payment-form>
             <!---->
         </div>
-    </div>
-    <!--modal-->
-    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <payment-form price="product.price" product="product.name"></payment-form>
     </div>
 
 </div>

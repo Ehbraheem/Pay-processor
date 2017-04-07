@@ -19,5 +19,7 @@
             product_list_html : "pay/product/product_list/product_list.html",
 
             payment_form : "pay/payment/form.html",
+
+            success_html : "pay/success/success.html"
         });
 })();
